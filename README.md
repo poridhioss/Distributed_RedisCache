@@ -11,6 +11,67 @@ Example: 3 servers → add 4th server
 - Probability a key stays = **1/(n+1)** = **25%** (for n=3)  
 → **~75% of all data must be moved/reshuffled** — very expensive and slow.
 
+
+---
+
+### 🔍 Step-by-Step Enumeration (Concrete Proof)
+
+Instead of reasoning abstractly, examine one full cycle.
+
+The combined pattern repeats every:
+
+```
+LCM(3,4) = 12
+```
+
+So we just check values:
+
+```
+h = 0 to 11
+```
+
+Now compute:
+
+| h  | h % 3 | h % 4 |
+| -- | ----- | ----- |
+| 0  | 0     | 0     |
+| 1  | 1     | 1     |
+| 2  | 2     | 2     |
+| 3  | 0     | 3     |
+| 4  | 1     | 0     |
+| 5  | 2     | 1     |
+| 6  | 0     | 2     |
+| 7  | 1     | 3     |
+| 8  | 2     | 0     |
+| 9  | 0     | 1     |
+| 10 | 1     | 2     |
+| 11 | 2     | 3     |
+
+Now count where:
+
+```
+h % 3 == h % 4
+```
+
+Matches occur only at:
+
+```
+h = 0, 1, 2
+```
+
+That’s:
+
+```
+3 matches out of 12
+```
+
+So probability:
+
+```
+3 / 12 = 1 / 4 = 25%
+```
+
+---
 ### 2. Better Approach: Basic Consistent Hashing Ring (Fixed Size, e.g., 0–99)
 We switched to a **ring** (circular hash space):  
 - Fixed virtual ring of size **100** (positions 0 to 99)  
